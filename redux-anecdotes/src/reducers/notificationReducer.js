@@ -3,7 +3,7 @@ const initialNotification = null
 const notificationReducer = (state = initialNotification, action) => {
     switch (action.type) {
         case 'NOTIFY':
-            return action.notification
+            return action.data
         case 'EMPTY':
             return null
         default:
@@ -11,10 +11,25 @@ const notificationReducer = (state = initialNotification, action) => {
     }
 }
 
-export const notificationChange = notification => {
-    return {
-        type: 'NOTIFY',
-        notification,
+// export const notificationChange = notification => {
+//     return {
+//         type: 'NOTIFY',
+//         notification,
+//     }
+// }
+
+export const setNotification = (notification,second) => {
+    return async dispatch => {
+        dispatch({
+            type: 'NOTIFY',
+            data: notification
+        })
+        setTimeout(() => {
+            dispatch({
+                type: 'EMPTY',
+                data: null
+            })
+        }, second*1000)
     }
 }
 
